@@ -77,9 +77,51 @@ class Services {
         System.out.println("Amount Deposited Successfully.");
         System.out.println("Current Balance: " + acc.getBalance());
     }
+
+    public void withdraw() {
+
+        System.out.print("Enter Account Number: ");
+        int accNo = sc.nextInt();
+
+        Account acc = accounts.get(accNo);
+
+        if (acc == null) {
+            System.out.println("Account Not Found.");
+            return;
+        }
+
+        System.out.print("Enter Amount: ");
+        double amount = sc.nextDouble();
+
+        if (amount > acc.getBalance()) {
+            System.out.println("Insufficient Balance.");
+            return;
+        }
+
+        acc.setBalance(acc.getBalance() - amount);
+
+        System.out.println("Amount Withdrawn Successfully.");
+        System.out.println("Current Balance: " + acc.getBalance());
+    }
+
+    public void checkBalance() {
+
+        System.out.print("Enter Account Number: ");
+        int accNo = sc.nextInt();
+
+        Account acc = accounts.get(accNo);
+
+        if (acc == null) {
+            System.out.println("Account Not Found.");
+            return;
+        }
+
+        System.out.println("Account Holder: " + acc.getName());
+        System.out.println("Current Balance: " + acc.getBalance());
+    }
 }
 
-public class Bank1{
+public class Bank1 {
 
     public static void main(String[] args) {
 
@@ -93,7 +135,9 @@ public class Bank1{
             System.out.println("\n------ MENU ------");
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
-            System.out.println("3. Exit");
+            System.out.println("3. Withdraw");
+            System.out.println("4. Check Balance");
+            System.out.println("5. Exit");
 
             System.out.print("Enter Choice: ");
             ch = sc.nextInt();
@@ -109,13 +153,21 @@ public class Bank1{
                     break;
 
                 case 3:
-                    System.out.println("Thank You!");
+                    op.withdraw();
+                    break;
+
+                case 4:
+                    op.checkBalance();
+                    break;
+
+                case 5:
+                    System.out.println("Thank You");
                     break;
 
                 default:
                     System.out.println("Invalid Choice");
             }
 
-        } while (ch != 3);
+        } while (ch != 5);
     }
 }
