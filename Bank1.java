@@ -112,6 +112,23 @@ class Services {
         System.out.println("Amount Withdrawn Successfully.");
         System.out.println("Current Balance: " + acc.getBalance());
     }
+
+    public void checkBalance() {
+
+        System.out.print("Enter Account Number: ");
+        int accNo = sc.nextInt();
+
+        if (!accounts.containsKey(accNo)) {
+            System.out.println("Account not found.");
+            return;
+        }
+
+        Account acc = accounts.get(accNo);
+
+        System.out.println("Account Number: " + acc.getAccNo());
+        System.out.println("Account Holder: " + acc.getName());
+        System.out.println("Current Balance: " + acc.getBalance());
+    }
 }
 
 public class Bank1 {
@@ -128,7 +145,8 @@ public class Bank1 {
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
-            System.out.println("4. Exit");
+            System.out.println("4. Check Balance");
+            System.out.println("5. Exit");
 
             System.out.print("Enter Choice: ");
             ch = sc.nextInt();
@@ -148,6 +166,10 @@ public class Bank1 {
                     break;
 
                 case 4:
+                    op.checkBalance();
+                    break;
+
+                case 5:
                     System.out.println("Thank You");
                     break;
 
@@ -155,6 +177,6 @@ public class Bank1 {
                     System.out.println("Invalid Choice");
             }
 
-        } while (ch != 4);
+        } while (ch != 5);
     }
 }
