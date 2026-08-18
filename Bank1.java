@@ -4,11 +4,13 @@ class Account {
     private int accNo;
     private String name;
     private double balance;
+    private ArrayList<String> transactions = new ArrayList<>();
 
     public Account(int accNo, String name, double balance) {
         this.accNo = accNo;
         this.name = name;
         this.balance = balance;
+        transactions.add("Account Created | Balance: " + balance);
     }
 
     public int getAccNo() {
@@ -25,6 +27,10 @@ class Account {
 
     public void setBalance(double balance) {
         this.balance = balance;
+    }
+
+    public ArrayList<String> getTransactions() {
+        return transactions;
     }
 }
 
@@ -78,6 +84,10 @@ class Services {
         Account acc = accounts.get(accNo);
         acc.setBalance(acc.getBalance() + amount);
 
+        acc.getTransactions().add(
+            "Deposited: " + amount + " | Balance: " + acc.getBalance()
+        );
+
         System.out.println("Amount Deposited Successfully.");
         System.out.println("Current Balance: " + acc.getBalance());
     }
@@ -109,6 +119,10 @@ class Services {
 
         acc.setBalance(acc.getBalance() - amount);
 
+        acc.getTransactions().add(
+            "Withdrawn: " + amount + " | Balance: " + acc.getBalance()
+        );
+
         System.out.println("Amount Withdrawn Successfully.");
         System.out.println("Current Balance: " + acc.getBalance());
     }
@@ -129,6 +143,32 @@ class Services {
         System.out.println("Account Holder: " + acc.getName());
         System.out.println("Current Balance: " + acc.getBalance());
     }
+
+    public void miniStatement() {
+
+        System.out.print("Enter Account Number: ");
+        int accNo = sc.nextInt();
+
+        if (!accounts.containsKey(accNo)) {
+            System.out.println("Account not found.");
+            return;
+        }
+
+        Account acc = accounts.get(accNo);
+
+        System.out.println("\nMINI STATEMENT");
+        System.out.println("Account Number: " + acc.getAccNo());
+        System.out.println("Account Holder: " + acc.getName());
+
+        System.out.println("\nTransactions:");
+
+        for (String transaction : acc.getTransactions()) {
+            System.out.println(transaction);
+        }
+
+        System.out.println("\nAvailable Balance: " + acc.getBalance());
+        System.out.println("----------------------------");
+    }
 }
 
 public class Bank1 {
@@ -141,12 +181,13 @@ public class Bank1 {
         int ch;
 
         do {
-            System.out.println("\n------ MENU ------");
+            System.out.println("\n MENU");
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
             System.out.println("4. Check Balance");
-            System.out.println("5. Exit");
+            System.out.println("5. Mini Statement");
+            System.out.println("6. Exit");
 
             System.out.print("Enter Choice: ");
             ch = sc.nextInt();
@@ -170,6 +211,10 @@ public class Bank1 {
                     break;
 
                 case 5:
+                    op.miniStatement();
+                    break;
+
+                case 6:
                     System.out.println("Thank You");
                     break;
 
@@ -177,6 +222,6 @@ public class Bank1 {
                     System.out.println("Invalid Choice");
             }
 
-        } while (ch != 5);
+        } while (ch != 6);
     }
 }
