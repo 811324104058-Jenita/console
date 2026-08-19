@@ -156,7 +156,7 @@ class Services {
 
         Account acc = accounts.get(accNo);
 
-        System.out.println("\nMINI STATEMENT");
+        System.out.println("\n--------MINI STATEMENT-------------");
         System.out.println("Account Number: " + acc.getAccNo());
         System.out.println("Account Holder: " + acc.getName());
 
@@ -181,7 +181,7 @@ public class Bank1 {
         int ch;
 
         do {
-            System.out.println("\n MENU");
+            System.out.println("\n-------- MENU---------");
             System.out.println("1. Create Account");
             System.out.println("2. Deposit");
             System.out.println("3. Withdraw");
