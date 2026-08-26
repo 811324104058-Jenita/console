@@ -1,4 +1,5 @@
 import java.util.*;
+
 class Account {
     private int accNo;
     private String name;
@@ -9,7 +10,16 @@ class Account {
         this.name = name;
         this.balance = balance;
     }
+
+    public void deposit(double amount) {
+        balance = balance + amount;
+    }
+
+    public double getBalance() {
+        return balance;
+    }
 }
+
 class Services {
     TreeMap<Integer, Account> accounts = new TreeMap<>();
     Scanner sc = new Scanner(System.in);
@@ -17,41 +27,83 @@ class Services {
     public void createAccount() {
         System.out.print("Enter Account Number: ");
         int accNo = sc.nextInt();
+
         if (accounts.containsKey(accNo)) {
             System.out.println("Account already exists.");
             return;
         }
+
         sc.nextLine();
+
         System.out.print("Enter Name: ");
         String name = sc.nextLine();
+
         System.out.print("Enter Initial Balance: ");
         double balance = sc.nextDouble();
+
         Account acc = new Account(accNo, name, balance);
         accounts.put(accNo, acc);
+
         System.out.println("Account Created Successfully.");
     }
+
+    public void deposit() {
+        System.out.print("Enter Account Number: ");
+        int accNo = sc.nextInt();
+
+        if (!accounts.containsKey(accNo)) {
+            System.out.println("Account not found.");
+            return;
+        }
+
+        System.out.print("Enter Deposit Amount: ");
+        double amount = sc.nextDouble();
+
+        if (amount <= 0) {
+            System.out.println("Invalid Amount.");
+            return;
+        }
+
+        Account acc = accounts.get(accNo);
+        acc.deposit(amount);
+
+        System.out.println("Amount Deposited Successfully.");
+        System.out.println("Current Balance: " + acc.getBalance());
+    }
 }
+
 public class Bank1 {
     public static void main(String[] args) {
         Services op = new Services();
         Scanner sc = new Scanner(System.in);
         int ch;
+
         do {
-            System.out.print("--------MENU--------");
-            System.out.println("\n1. Create Account");
-            System.out.println("2. Exit");
+            System.out.println("\n--------MENU--------");
+            System.out.println("1. Create Account");
+            System.out.println("2. Deposit");
+            System.out.println("3. Exit");
+
             System.out.print("Enter Choice: ");
             ch = sc.nextInt();
+
             switch (ch) {
                 case 1:
                     op.createAccount();
                     break;
+
                 case 2:
+                    op.deposit();
+                    break;
+
+                case 3:
                     System.out.println("Thank You");
                     break;
+
                 default:
                     System.out.println("Invalid Choice");
             }
-        } while (ch != 2);
+
+        } while (ch != 3);
     }
 }
